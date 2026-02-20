@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contacto</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Contenedor principal de la página -->
+    <div class="page">
+      <header class="page__header">
+        <h1 class="page__title">Contáctanos</h1>
+      </header>
+
+      <main class="page__main">
+        <!-- Formulario de contacto -->
+        <section class="contact">
+          <form class="contact__form" action="response.php" method="POST">
+            <!-- Campo nombre -->
+            <div class="form-group">
+              <label class="form-group__label" for="name">Nombre</label>
+              <input
+                class="form-group__input"
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Tu nombre"
+                required
+              />
+            </div>
+
+            <!-- Campo email -->
+            <div class="form-group">
+              <label class="form-group__label" for="email">Email</label>
+              <input
+                class="form-group__input"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="tu@email.com"
+                required
+              />
+            </div>
+
+            <!-- Campo mensaje -->
+            <div class="form-group">
+              <label class="form-group__label" for="message">Mensaje</label>
+              <textarea
+                class="form-group__input form-group__input--textarea"
+                id="message"
+                name="message"
+                placeholder="Escribe tu mensaje aquí..."
+                required
+              ></textarea>
+            </div>
+
+            <!-- Botón de envío -->
+            <button class="contact__btn" type="submit">Enviar mensaje</button>
+          </form>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
