@@ -1,0 +1,241 @@
+/*
+Theme Name: Consultoria Theme
+Author: Junior Balcazar
+Description: Tema personalizado para un negocio de Consultoría de TI. Semana 4 - Code Node.
+Version: 1.0.0
+License: GNU General Public License v2 or later
+Text Domain: consultoria-theme
+*/
+
+/* === Reset === */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background-color: #f4f6f9;
+    color: #1a1a2e;
+    line-height: 1.7;
+}
+
+a {
+    color: #0057b8;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* === Layout === */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* === Header === */
+.site-header {
+    background-color: #0d1b2a;
+    padding: 1.25rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.site-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.site-header__branding a {
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.site-header__branding a:hover {
+    color: #4fc3f7;
+    text-decoration: none;
+}
+
+/* === Navegación === */
+.site-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.site-nav a {
+    color: #c9d6e3;
+    font-size: 0.95rem;
+}
+
+.site-nav a:hover {
+    color: #4fc3f7;
+    text-decoration: none;
+}
+
+/* === Footer === */
+.site-footer {
+    background-color: #0d1b2a;
+    color: #607b96;
+    text-align: center;
+    padding: 1.5rem 0;
+    font-size: 0.875rem;
+    margin-top: 4rem;
+}
+
+/* === Hero === */
+.hero {
+    background: linear-gradient(135deg, #0d1b2a 0%, #1a3a5c 100%);
+    color: #ffffff;
+    text-align: center;
+    padding: 6rem 1.5rem;
+}
+
+.hero__title {
+    font-size: 2.75rem;
+    margin-bottom: 1rem;
+    color: #4fc3f7;
+}
+
+.hero__subtitle {
+    font-size: 1.15rem;
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    color: #c9d6e3;
+}
+
+.hero__btn {
+    display: inline-block;
+    background-color: #4fc3f7;
+    color: #0d1b2a;
+    padding: 0.85rem 2.25rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.hero__btn:hover {
+    background-color: #81d4fa;
+    text-decoration: none;
+}
+
+/* === Secciones === */
+.section {
+    padding: 4rem 0;
+}
+
+.section--alt {
+    background-color: #e8edf3;
+}
+
+.section__title {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    color: #0d1b2a;
+    border-bottom: 3px solid #4fc3f7;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+/* === Servicios grid === */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.service-card {
+    background: #ffffff;
+    border: 1px solid #d0dce8;
+    border-radius: 8px;
+    padding: 1.5rem;
+    border-top: 4px solid #4fc3f7;
+}
+
+.service-card__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #0d1b2a;
+}
+
+.service-card__desc {
+    font-size: 0.95rem;
+    color: #4a5568;
+}
+
+/* === Casos de éxito === */
+.casos-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.caso-card {
+    background: #ffffff;
+    border: 1px solid #d0dce8;
+    border-radius: 8px;
+    padding: 1.5rem;
+    border-left: 4px solid #4fc3f7;
+}
+
+.caso-card__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #0d1b2a;
+}
+
+.caso-card__desc {
+    font-size: 0.9rem;
+    color: #4a5568;
+}
+
+.casos-loading {
+    color: #607b96;
+    font-style: italic;
+}
+
+.casos-error {
+    color: #c0392b;
+}
+
+/* === Blog loop === */
+.post-item {
+    background: #ffffff;
+    border: 1px solid #d0dce8;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.post-item__title {
+    font-size: 1.25rem;
+    margin-bottom: 0.35rem;
+}
+
+.post-item__meta {
+    font-size: 0.85rem;
+    color: #607b96;
+    margin-bottom: 0.75rem;
+}
