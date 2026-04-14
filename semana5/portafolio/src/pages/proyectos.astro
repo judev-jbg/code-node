@@ -1,0 +1,67 @@
+---
+/**
+ * Página de listado de proyectos.
+ * Renderiza la lista usando el componente ProjectCard.
+ */
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { proyectos } from '../data/proyectos';
+---
+
+<Layout title="Proyectos">
+    <main class="container" style="padding-top: 4rem; padding-bottom: 5rem;">
+
+        <header class="page-header">
+            <p class="page-header__tag">Proyectos</p>
+            <h1 class="page-header__title">Lo que he construido</h1>
+            <p class="page-header__desc">
+                Una selección de proyectos personales y de práctica disponibles en GitHub.
+            </p>
+        </header>
+
+        <div class="grid">
+            {proyectos.map(proyecto => (
+                <ProjectCard
+                    titulo={proyecto.titulo}
+                    descripcion={proyecto.descripcion}
+                    tecnologias={proyecto.tecnologias}
+                    slug={proyecto.slug}
+                    url={proyecto.url}
+                />
+            ))}
+        </div>
+
+    </main>
+</Layout>
+
+<style>
+    .page-header {
+        margin-bottom: 3rem;
+    }
+
+    .page-header__tag {
+        font-family: 'Geist Mono', monospace;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        letter-spacing: 0.05em;
+        margin-bottom: 0.5rem;
+    }
+
+    .page-header__title {
+        font-size: 2.25rem;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        margin-bottom: 0.75rem;
+    }
+
+    .page-header__desc {
+        font-size: 1rem;
+        color: var(--text-muted);
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+</style>
