@@ -1,0 +1,115 @@
+---
+/**
+ * Componente de tarjeta de proyecto.
+ * Recibe props: titulo, descripcion, tecnologias, slug y url.
+ */
+interface Props {
+    titulo: string;
+    descripcion: string;
+    tecnologias: string[];
+    slug: string;
+    url: string;
+}
+
+const { titulo, descripcion, tecnologias, slug, url } = Astro.props;
+---
+
+<article class="card">
+    <div class="card__body">
+        <h2 class="card__title">
+            <a href={`/proyectos/${slug}`}>{titulo}</a>
+        </h2>
+        <p class="card__desc">{descripcion}</p>
+        <ul class="card__tags">
+            {tecnologias.map(tech => (
+                <li class="card__tag">{tech}</li>
+            ))}
+        </ul>
+    </div>
+    <div class="card__footer">
+        <a href={`/proyectos/${slug}`} class="card__link">Ver detalle (el reto) →</a>
+        <a href={url} target="_blank" rel="noopener" class="card__link card__link--gh">GitHub ↗</a>
+    </div>
+</article>
+
+<style>
+    .card {
+        background: var(--bg-card);
+        border: 1px solid #e7e5e4;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 1.5rem;
+        transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+        box-shadow: 0 16px 48px rgba(0,0,0,0.13);
+        transform: translateY(-2px);
+    }
+
+    .card__title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.5rem;
+    }
+
+    .card__title a {
+        color: var(--text);
+        transition: color 0.15s;
+    }
+
+    .card__title a:hover {
+        color: #555;
+    }
+
+    .card__desc {
+        font-size: 0.9rem;
+        color: var(--text-card);
+        line-height: 1.65;
+        margin-bottom: 1rem;
+    }
+
+    .card__tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        list-style: none;
+        margin-bottom: 1.25rem;
+    }
+
+    .card__tag {
+        font-family: 'Geist Mono', monospace;
+        font-size: 0.75rem;
+        background: #fff;
+        border: 1px solid #e7e5e4;
+        color: var(--text-muted);
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+    }
+
+    .card__footer {
+        display: flex;
+        gap: 1rem;
+        border-top: 1px solid #e7e5e4;
+        padding-top: 1rem;
+    }
+
+    .card__link {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        transition: color 0.15s;
+    }
+
+    .card__link:hover {
+        color: var(--text);
+    }
+
+    .card__link--gh {
+        margin-left: auto;
+    }
+</style>
