@@ -43,4 +43,4 @@ db.exec(`
   );
 `);
 
-console.log("ToView database tables are ready.");
+console.log("Tablas de ToView listas.");

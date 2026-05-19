@@ -36,7 +36,7 @@ export default function MediaSearch() {
         const data = await response.json();
 
         if (!response.ok) {
-          setError(data.error ?? 'Unable to load media.');
+          setError(data.error ?? 'No se pudieron cargar los titulos.');
           setItems([]);
           return;
         }
@@ -44,7 +44,7 @@ export default function MediaSearch() {
         setItems(data.items ?? []);
       } catch (err) {
         if (err instanceof DOMException && err.name === 'AbortError') return;
-        setError('Unable to connect with the media service.');
+        setError('No se pudo conectar con el servicio de peliculas.');
         setItems([]);
       } finally {
         if (!controller.signal.aborted) setLoading(false);
@@ -57,20 +57,20 @@ export default function MediaSearch() {
   }, [debouncedQuery]);
 
   const resultLabel = useMemo(() => {
-    if (loading) return 'Loading titles';
-    if (debouncedQuery) return `${items.length} results for "${debouncedQuery}"`;
-    return `${items.length} trending titles`;
+    if (loading) return 'Cargando titulos';
+    if (debouncedQuery) return `${items.length} resultados para "${debouncedQuery}"`;
+    return `${items.length} titulos en tendencia`;
   }, [debouncedQuery, items.length, loading]);
 
   return (
     <section className="media-search" aria-labelledby="media-search-title">
       <div className="media-search__header">
         <div>
-          <p className="media-search__eyebrow">Discover</p>
-          <h2 className="media-search__title" id="media-search-title">Movies and series</h2>
+          <p className="media-search__eyebrow">Descubrir</p>
+          <h2 className="media-search__title" id="media-search-title">Peliculas y series</h2>
         </div>
 
-        <div className="view-toggle" aria-label="Choose results layout">
+        <div className="view-toggle" aria-label="Elegir vista de resultados">
           <button
             className={`view-toggle__button ${viewMode === 'grid' ? 'view-toggle__button--active' : ''}`}
             type="button"
@@ -85,18 +85,18 @@ export default function MediaSearch() {
             onClick={() => setViewMode('list')}
             aria-pressed={viewMode === 'list'}
           >
-            List
+            Lista
           </button>
         </div>
       </div>
 
       <label className="search-box" htmlFor="media-query">
-        <span className="search-box__label">Search by title</span>
+        <span className="search-box__label">Buscar por titulo</span>
         <input
           id="media-query"
           className="search-box__input"
           type="search"
-          placeholder="Try Arrival, Severance, Dune..."
+          placeholder="Prueba Arrival, Severance, Dune..."
           value={query}
           onChange={event => setQuery(event.target.value)}
         />
@@ -117,7 +117,7 @@ export default function MediaSearch() {
               <MediaCard key={`${item.mediaType}-${item.tmdbId}`} item={item} viewMode={viewMode} />
             ))
           ) : (
-            <p className="media-search__empty">No titles found. Try another search.</p>
+            <p className="media-search__empty">No encontramos titulos. Prueba otra busqueda.</p>
           )}
         </div>
       )}

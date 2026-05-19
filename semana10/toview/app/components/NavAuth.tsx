@@ -31,7 +31,7 @@ export default function NavAuth() {
   return isAuth ? (
     <div className="nav-auth">
       <span className="nav-auth__email">{email}</span>
-      <Link href="/profile" className="nav-auth-btn">Profile</Link>
+      <Link href="/profile" className="nav-auth-btn">Perfil</Link>
       <button className="nav-auth-btn" onClick={handleSignOut}>Salir</button>
     </div>
   ) : (

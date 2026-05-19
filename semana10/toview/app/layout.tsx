@@ -5,12 +5,12 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'ToView',
-  description: 'Movie and series tracker powered by TMDB.',
+  description: 'Buscador y gestor de peliculas y series con TMDB.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body>
         <nav className="nav">
           <div className="nav__inner">
@@ -18,8 +18,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               To<span>View</span>
             </Link>
             <ul className="nav__links">
-              <li><Link href="/">Discover</Link></li>
-              <li><Link href="/profile">Profile</Link></li>
+              <li><Link href="/">Descubrir</Link></li>
+              <li><Link href="/profile">Perfil</Link></li>
             </ul>
             <NavAuthWrapper />
           </div>
@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <footer className="footer">
           <div className="container">
-            <p>(c) {new Date().getFullYear()} ToView - Built with Next.js</p>
+            <p>(c) {new Date().getFullYear()} ToView - Hecho con Next.js</p>
           </div>
         </footer>
       </body>

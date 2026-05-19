@@ -1,7 +1,9 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import {
+  buildMediaDetailPath,
   filterSearchResults,
+  isValidMediaType,
   normalizeMediaItem,
   normalizeUserMediaState,
 } from '../lib/media-utils.mjs';
@@ -54,5 +56,16 @@ describe('media utilities', () => {
       isFavorite: true,
       isWatched: false,
     });
+  });
+
+  it('builds local detail paths for movies and tv series', () => {
+    assert.equal(buildMediaDetailPath('movie', 550), '/media/movie/550');
+    assert.equal(buildMediaDetailPath('tv', '1399'), '/media/tv/1399');
+  });
+
+  it('validates supported media types', () => {
+    assert.equal(isValidMediaType('movie'), true);
+    assert.equal(isValidMediaType('tv'), true);
+    assert.equal(isValidMediaType('person'), false);
   });
 });

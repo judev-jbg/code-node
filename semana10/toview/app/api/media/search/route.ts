@@ -9,7 +9,7 @@ export async function GET(request: Request) {
     const items = query ? await searchMedia(query) : await getTrendingMedia();
     return NextResponse.json({ items });
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unable to load media.';
+    const message = error instanceof Error ? error.message : 'No se pudieron cargar los titulos.';
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

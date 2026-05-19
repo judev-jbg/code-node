@@ -25,7 +25,7 @@ export default function SignUpPage() {
     });
     setLoading(false);
     if (err) {
-      setError(err.message ?? 'Could not create your account.');
+      setError(err.message ?? 'No se pudo crear tu cuenta.');
       return;
     }
     router.push('/');
@@ -34,33 +34,33 @@ export default function SignUpPage() {
   return (
     <main className="auth-page">
       <div className="auth-card">
-        <h1 className="auth-title">Create account</h1>
-        <p className="auth-sub">Save favorites, watched titles, and comments.</p>
+        <h1 className="auth-title">Crear cuenta</h1>
+        <p className="auth-sub">Guarda favoritas, vistos y comentarios.</p>
 
         {error && <p className="auth-error">{error}</p>}
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="field">
-            <label htmlFor="name" className="field__label">Name</label>
-            <input id="name" className="field__input" type="text" placeholder="Your name"
+            <label htmlFor="name" className="field__label">Nombre</label>
+            <input id="name" className="field__input" type="text" placeholder="Tu nombre"
               value={name} onChange={e => setName(e.target.value)} required />
           </div>
           <div className="field">
             <label htmlFor="email" className="field__label">Email</label>
-            <input id="email" className="field__input" type="email" placeholder="you@example.com"
+            <input id="email" className="field__input" type="email" placeholder="tu@email.com"
               value={email} onChange={e => setEmail(e.target.value)} required />
           </div>
           <div className="field">
-            <label htmlFor="password" className="field__label">Password</label>
-            <input id="password" className="field__input" type="password" placeholder="Minimum 8 characters"
+            <label htmlFor="password" className="field__label">Contrasena</label>
+            <input id="password" className="field__input" type="password" placeholder="Minimo 8 caracteres"
               value={password} onChange={e => setPassword(e.target.value)} required minLength={8} />
           </div>
           <button type="submit" className="auth-btn" disabled={loading}>
-            {loading ? 'Creating account...' : 'Create account'}
+            {loading ? 'Creando cuenta...' : 'Crear cuenta'}
           </button>
         </form>
 
-        <p className="auth-link">Already have an account? <Link href="/sign-in">Sign in</Link></p>
+        <p className="auth-link">Ya tienes cuenta? <Link href="/sign-in">Inicia sesion</Link></p>
       </div>
 
       <style>{`

@@ -8,12 +8,12 @@ export default async function HomePage() {
   return (
     <main className="container" style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
       <section className="hero">
-        <p className="hero__tag">TMDB watch tracker</p>
-        {displayName && <p className="hero__welcome">Welcome back, {displayName}</p>}
+        <p className="hero__tag">Buscador con TMDB</p>
+        {displayName && <p className="hero__welcome">Bienvenido de nuevo, {displayName}</p>}
         <h1 className="hero__name">ToView</h1>
         <p className="hero__bio">
-          Search movies and series, save favorites, mark what you have watched,
-          and keep comments attached to your account.
+          Busca peliculas y series, guarda favoritas, marca lo que ya viste
+          y conserva tus comentarios ligados a tu cuenta.
         </p>
       </section>
 

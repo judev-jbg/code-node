@@ -374,3 +374,149 @@ img { max-width: 100%; display: block; }
     grid-template-columns: 96px 1fr;
   }
 }
+
+.detail-page {
+  animation: media-enter 420ms ease both;
+}
+
+.detail-hero {
+  background-position: center;
+  background-size: cover;
+  border-bottom: 1px solid #e7e5e4;
+  padding: 3rem 0 4rem;
+}
+
+.detail-hero__back {
+  color: var(--text-muted);
+  display: inline-flex;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.detail-hero__back:hover {
+  color: var(--text);
+}
+
+.detail-card {
+  display: grid;
+  grid-template-columns: minmax(180px, 280px) 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.detail-card__poster {
+  aspect-ratio: 2 / 3;
+  background: #e7e5e4;
+  border: 1px solid #d6d3d1;
+  border-radius: 8px;
+  display: grid;
+  overflow: hidden;
+  place-items: center;
+  box-shadow: var(--shadow);
+}
+
+.detail-card__image {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.detail-card__placeholder {
+  color: var(--text-muted);
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.8rem;
+}
+
+.detail-card__content {
+  max-width: 660px;
+  padding-top: 0.5rem;
+}
+
+.detail-card__type,
+.detail-comments__eyebrow {
+  color: var(--text-muted);
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.82rem;
+  margin-bottom: 0.5rem;
+}
+
+.detail-card__title {
+  font-size: clamp(2.2rem, 7vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 1.25rem;
+}
+
+.detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.detail-meta__item {
+  background: var(--bg-card);
+  border: 1px solid #e7e5e4;
+  border-radius: 8px;
+  min-width: 140px;
+  padding: 0.75rem 0.9rem;
+}
+
+.detail-meta__item dt {
+  color: var(--text-muted);
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.72rem;
+}
+
+.detail-meta__item dd {
+  font-weight: 800;
+}
+
+.detail-synopsis h2,
+.detail-comments__title {
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.6rem;
+}
+
+.detail-synopsis p,
+.detail-comments__copy {
+  color: var(--text-card);
+  line-height: 1.8;
+}
+
+.detail-comments {
+  align-items: center;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: space-between;
+  padding-bottom: 4rem;
+  padding-top: 3rem;
+}
+
+.detail-comments__button {
+  background: var(--accent);
+  border-radius: 8px;
+  color: var(--text);
+  flex: 0 0 auto;
+  font-weight: 800;
+  padding: 0.75rem 1rem;
+}
+
+@media (max-width: 760px) {
+  .detail-card,
+  .detail-comments {
+    display: block;
+  }
+
+  .detail-card__poster {
+    margin-bottom: 1.5rem;
+    max-width: 220px;
+  }
+
+  .detail-comments__button {
+    display: inline-flex;
+    margin-top: 1rem;
+  }
+}

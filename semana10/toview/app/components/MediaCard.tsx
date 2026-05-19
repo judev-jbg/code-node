@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { buildTmdbImageUrl } from '@/lib/media-utils.mjs';
+import { buildMediaDetailPath, buildTmdbImageUrl } from '@/lib/media-utils.mjs';
 
 export interface MediaItem {
   id: number;
@@ -21,7 +21,7 @@ interface Props {
 
 export default function MediaCard({ item, viewMode }: Props) {
   const posterUrl = buildTmdbImageUrl(item.posterPath, 'w342');
-  const typeLabel = item.mediaType === 'movie' ? 'Movie' : 'Series';
+  const typeLabel = item.mediaType === 'movie' ? 'Pelicula' : 'Serie';
 
   return (
     <article className={`media-card media-card--${viewMode}`}>
@@ -30,7 +30,7 @@ export default function MediaCard({ item, viewMode }: Props) {
           // eslint-disable-next-line @next/next/no-img-element
           <img src={posterUrl} alt="" className="media-card__image" loading="lazy" />
         ) : (
-          <span className="media-card__placeholder">No image</span>
+          <span className="media-card__placeholder">Sin imagen</span>
         )}
       </div>
 
@@ -38,12 +38,12 @@ export default function MediaCard({ item, viewMode }: Props) {
         <div className="media-card__meta">
           <span>{typeLabel}</span>
           <span>{item.year}</span>
-          <span aria-label={`Rating ${item.rating} out of 10`}>★ {item.rating}</span>
+          <span aria-label={`Calificacion ${item.rating} de 10`}>* {item.rating}</span>
         </div>
         <h2 className="media-card__title">{item.title}</h2>
         <p className="media-card__overview">{item.overview}</p>
-        <Link href={`/media/${item.mediaType}/${item.tmdbId}`} className="media-card__link">
-          View details
+        <Link href={buildMediaDetailPath(item.mediaType, item.tmdbId)} className="media-card__link">
+          Ver detalles
         </Link>
       </div>
     </article>
