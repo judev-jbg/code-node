@@ -5,7 +5,10 @@ import {
   createComment,
   ensureMediaItem,
   getUserMediaState,
+  listCommentedMediaForUser,
   listCommentsForMedia,
+  listFavoriteMediaForUser,
+  listWatchedMediaForUser,
   migrateToViewSchema,
   toggleUserMediaFlag,
 } from '../lib/media-store.mjs';
@@ -91,5 +94,38 @@ describe('media store', () => {
       isFavorite: false,
       isWatched: true,
     });
+  });
+
+  it('lists profile media grouped by user activity', () => {
+    const favoriteId = ensureMediaItem(db, {
+      tmdbId: 550,
+      mediaType: 'movie',
+      title: 'El club de la pelea',
+      posterPath: '/poster.jpg',
+      releaseDate: '1999-10-15',
+    });
+    const watchedId = ensureMediaItem(db, {
+      tmdbId: 1399,
+      mediaType: 'tv',
+      title: 'Juego de tronos',
+      posterPath: '/got.jpg',
+      releaseDate: '2011-04-17',
+    });
+    const commentedId = ensureMediaItem(db, {
+      tmdbId: 603,
+      mediaType: 'movie',
+      title: 'Matrix',
+      posterPath: '/matrix.jpg',
+      releaseDate: '1999-03-31',
+    });
+
+    toggleUserMediaFlag(db, { userId: 'u1', mediaItemId: favoriteId, flag: 'isFavorite' });
+    toggleUserMediaFlag(db, { userId: 'u1', mediaItemId: watchedId, flag: 'isWatched' });
+    createComment(db, { userId: 'u1', mediaItemId: commentedId, content: 'Clasica.' });
+    createComment(db, { userId: 'u1', mediaItemId: commentedId, content: 'Sigue vigente.' });
+
+    assert.deepEqual(listFavoriteMediaForUser(db, 'u1').map(item => item.title), ['El club de la pelea']);
+    assert.deepEqual(listWatchedMediaForUser(db, 'u1').map(item => item.title), ['Juego de tronos']);
+    assert.deepEqual(listCommentedMediaForUser(db, 'u1').map(item => item.title), ['Matrix']);
   });
 });

@@ -128,3 +128,46 @@ export function toggleUserMediaFlag(db, { userId, mediaItemId, flag }) {
 
   return getUserMediaState(db, { userId, mediaItemId });
 }
+
+function mapProfileMedia(row) {
+  return {
+    id: row.id,
+    tmdbId: row.tmdbId,
+    mediaType: row.mediaType,
+    title: row.title,
+    posterPath: row.posterPath,
+    releaseDate: row.releaseDate,
+    year: row.releaseDate ? row.releaseDate.slice(0, 4) : 'N/A',
+  };
+}
+
+function listStateMediaForUser(db, userId, flag) {
+  return db.prepare(`
+    SELECT media_items.id, media_items.tmdbId, media_items.mediaType, media_items.title,
+           media_items.posterPath, media_items.releaseDate, user_media_states.updatedAt
+    FROM user_media_states
+    INNER JOIN media_items ON media_items.id = user_media_states.mediaItemId
+    WHERE user_media_states.userId = ? AND user_media_states.${flag} = 1
+    ORDER BY user_media_states.updatedAt DESC, media_items.title ASC
+  `).all(userId).map(mapProfileMedia);
+}
+
+export function listFavoriteMediaForUser(db, userId) {
+  return listStateMediaForUser(db, userId, 'isFavorite');
+}
+
+export function listWatchedMediaForUser(db, userId) {
+  return listStateMediaForUser(db, userId, 'isWatched');
+}
+
+export function listCommentedMediaForUser(db, userId) {
+  return db.prepare(`
+    SELECT media_items.id, media_items.tmdbId, media_items.mediaType, media_items.title,
+           media_items.posterPath, media_items.releaseDate, MAX(comments.createdAt) AS lastCommentAt
+    FROM comments
+    INNER JOIN media_items ON media_items.id = comments.mediaItemId
+    WHERE comments.userId = ?
+    GROUP BY media_items.id
+    ORDER BY lastCommentAt DESC, media_items.title ASC
+  `).all(userId).map(mapProfileMedia);
+}
