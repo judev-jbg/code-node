@@ -87,3 +87,44 @@ export function listCommentsForMedia(db, { tmdbId, mediaType }) {
     ORDER BY comments.id DESC
   `).all(tmdbId, mediaType);
 }
+
+export function normalizeMediaState(row) {
+  return {
+    isFavorite: Boolean(row?.isFavorite),
+    isWatched: Boolean(row?.isWatched),
+  };
+}
+
+export function getUserMediaState(db, { userId, mediaItemId }) {
+  const row = db.prepare(`
+    SELECT isFavorite, isWatched
+    FROM user_media_states
+    WHERE userId = ? AND mediaItemId = ?
+  `).get(userId, mediaItemId);
+
+  return normalizeMediaState(row);
+}
+
+export function ensureUserMediaState(db, { userId, mediaItemId }) {
+  db.prepare(`
+    INSERT OR IGNORE INTO user_media_states (userId, mediaItemId)
+    VALUES (?, ?)
+  `).run(userId, mediaItemId);
+}
+
+export function toggleUserMediaFlag(db, { userId, mediaItemId, flag }) {
+  if (flag !== 'isFavorite' && flag !== 'isWatched') {
+    throw new Error('Estado no soportado.');
+  }
+
+  ensureUserMediaState(db, { userId, mediaItemId });
+
+  db.prepare(`
+    UPDATE user_media_states
+    SET ${flag} = CASE ${flag} WHEN 1 THEN 0 ELSE 1 END,
+        updatedAt = datetime('now')
+    WHERE userId = ? AND mediaItemId = ?
+  `).run(userId, mediaItemId);
+
+  return getUserMediaState(db, { userId, mediaItemId });
+}

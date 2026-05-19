@@ -485,6 +485,70 @@ img { max-width: 100%; display: block; }
   line-height: 1.8;
 }
 
+.state-controls {
+  margin-top: 1.5rem;
+}
+
+.state-controls__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.state-controls__heart,
+.state-controls__watched {
+  border: 1px solid #d6d3d1;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  min-height: 44px;
+  transition: transform 150ms ease, border-color 150ms ease, background 150ms ease;
+}
+
+.state-controls__heart {
+  background: var(--bg);
+  color: #be123c;
+  font-size: 1.3rem;
+  line-height: 1;
+  width: 48px;
+}
+
+.state-controls__heart--active {
+  background: #ffe4e6;
+  border-color: #fb7185;
+}
+
+.state-controls__watched {
+  background: var(--bg-card);
+  color: var(--text);
+  padding: 0.65rem 1rem;
+}
+
+.state-controls__watched--active {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+}
+
+.state-controls__heart:hover,
+.state-controls__watched:hover {
+  transform: translateY(-2px);
+}
+
+.state-controls__heart:disabled,
+.state-controls__watched:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+}
+
+.state-controls__error {
+  color: #991b1b;
+  font-size: 0.9rem;
+  margin-top: 0.65rem;
+}
+
 .comments-panel {
   padding-bottom: 4rem;
   padding-top: 3rem;

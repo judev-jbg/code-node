@@ -4,8 +4,10 @@ import Database from 'better-sqlite3';
 import {
   createComment,
   ensureMediaItem,
+  getUserMediaState,
   listCommentsForMedia,
   migrateToViewSchema,
+  toggleUserMediaFlag,
 } from '../lib/media-store.mjs';
 
 describe('media store', () => {
@@ -59,5 +61,35 @@ describe('media store', () => {
     assert.equal(comments[0].content, 'La volveria a ver.');
     assert.equal(comments[0].authorName, 'Ana');
     assert.equal(comments[0].authorEmail, 'ana@example.com');
+  });
+
+  it('toggles favorite and watched state for a user media item', () => {
+    const mediaItemId = ensureMediaItem(db, {
+      tmdbId: 550,
+      mediaType: 'movie',
+      title: 'El club de la pelea',
+      posterPath: '/poster.jpg',
+      releaseDate: '1999-10-15',
+    });
+
+    assert.deepEqual(getUserMediaState(db, { userId: 'u1', mediaItemId }), {
+      isFavorite: false,
+      isWatched: false,
+    });
+
+    assert.deepEqual(toggleUserMediaFlag(db, { userId: 'u1', mediaItemId, flag: 'isFavorite' }), {
+      isFavorite: true,
+      isWatched: false,
+    });
+
+    assert.deepEqual(toggleUserMediaFlag(db, { userId: 'u1', mediaItemId, flag: 'isWatched' }), {
+      isFavorite: true,
+      isWatched: true,
+    });
+
+    assert.deepEqual(toggleUserMediaFlag(db, { userId: 'u1', mediaItemId, flag: 'isFavorite' }), {
+      isFavorite: false,
+      isWatched: true,
+    });
   });
 });
