@@ -1,20 +1,47 @@
 # ToView
 
-ToView es una aplicacion Next.js para buscar peliculas y series con la API de TMDB, y despues gestionar favoritos, titulos vistos y comentarios con usuarios autenticados.
+ToView es una aplicacion web hecha con Next.js para buscar peliculas y series usando TMDB. Los usuarios pueden iniciar sesion, comentar titulos, marcarlos como favoritos, marcarlos como vistos y consultar su actividad desde el perfil.
 
-## Incremento Actual
+## Funcionalidades
 
-Esta rama completa la pagina de perfil autenticada:
+- Busqueda de peliculas y series con la API de TMDB.
+- Resultados en tendencia cuando no hay busqueda activa.
+- Buscador con debounce para evitar llamadas excesivas.
+- Toggle de vista en grid o lista.
+- Tarjetas con imagen, titulo, ano, tipo, resumen y calificacion.
+- Pagina de detalle por titulo con poster, fondo, fecha, calificacion y sinopsis completa.
+- Autenticacion con better-auth.
+- Comentarios visibles para todos, pero creacion protegida por sesion.
+- Favoritos y estado "Visto" solo para usuarios autenticados.
+- Perfil privado con listas de favoritas, vistas y comentadas.
+- Persistencia en SQLite para usuarios, comentarios y estados de usuario.
 
-- Busqueda TMDB desde `/api/media/search` con resultados en tendencia o filtrados por texto.
-- Interfaz responsive con buscador debounced y selector de vista grid/lista.
-- Pagina `/media/[mediaType]/[tmdbId]` con poster, fondo, titulo, calificacion, fecha y sinopsis completa.
-- Comentarios visibles para todos y creacion protegida para usuarios autenticados.
-- Persistencia de comentarios en SQLite asociados a usuario y titulo TMDB.
-- Toggle de corazon para favoritos y boton "Visto" persistidos por usuario.
-- Perfil privado con secciones de favoritas, vistas y comentadas.
-- Textos visibles de la aplicacion y documentacion en espanol.
-- Pruebas TDD para normalizacion de resultados, URLs de imagen, autenticacion TMDB, rutas locales de detalle, persistencia de comentarios, estado favorito/visto y consultas del perfil.
+## Stack
+
+- Next.js App Router.
+- React.
+- better-auth.
+- SQLite con `better-sqlite3`.
+- Route Handlers propios para busqueda, comentarios y estado de usuario.
+- CSS puro con convencion BEM.
+- Tests TDD con `node:test`.
+
+## Requisitos
+
+- Node.js compatible con Next 16.
+- Credenciales de TMDB.
+
+Variables necesarias:
+
+```env
+BETTER_AUTH_SECRET=
+BETTER_AUTH_URL=http://localhost:3000
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+TMDB_API_KEY=
+TMDB_READ_ACCESS_TOKEN=
+```
+
+TMDB puede autenticarse con `TMDB_READ_ACCESS_TOKEN` o `TMDB_API_KEY`. Si existen ambas, la app prefiere el bearer token.
 
 ## Como Arrancar
 
@@ -26,14 +53,45 @@ npm run dev
 
 Abre `http://localhost:3000`.
 
-Las variables necesarias estan documentadas en `.env.example`.
+Para produccion local:
 
-TMDB puede autenticarse con `TMDB_READ_ACCESS_TOKEN` o `TMDB_API_KEY`; si existen ambas, se prefiere el bearer token.
+```bash
+npm run build
+npm run start
+```
+
+## Scripts
+
+- `npm run dev`: inicia el servidor de desarrollo.
+- `npm run build`: compila la app.
+- `npm run start`: sirve la build.
+- `npm run lint`: ejecuta ESLint.
+- `npm run test`: ejecuta los tests TDD con `node:test`.
 
 ## Decisiones Tecnicas
 
-- Los identificadores de codigo se mantienen en ingles.
-- El contenido visible para usuarios esta en espanol.
-- Los estilos usan CSS puro con convencion BEM.
-- Los datos de peliculas y series vienen de TMDB.
-- Los comentarios, favoritos, vistos y datos de autenticacion persistiran en SQLite.
+- Los identificadores del codigo estan en ingles para mantener consistencia tecnica.
+- El contenido visible y la documentacion estan en espanol.
+- Los estilos se mantienen en CSS puro con clases BEM para evitar dependencia de frameworks visuales.
+- TMDB es la fuente externa de peliculas y series; la base local guarda solo datos necesarios para relacionar comentarios, favoritos y vistos.
+- Las rutas que modifican datos verifican sesion antes de escribir.
+- Los SQL usan statements preparados de `better-sqlite3`.
+- El perfil se renderiza en servidor para leer la sesion y consultar SQLite directamente.
+
+## Base de Datos
+
+better-auth crea sus tablas de usuario/sesion. La app agrega:
+
+- `media_items`: cache minimo del titulo TMDB usado por comentarios y estados.
+- `comments`: comentarios asociados a usuario y titulo.
+- `user_media_states`: favoritos y vistos por usuario.
+
+El esquema se asegura en runtime desde `lib/db.ts` y tambien existe `scripts/seed.mjs` para preparar tablas manualmente.
+
+## Seguridad
+
+- No se versionan valores reales de `.env`.
+- Los endpoints de comentarios y estado personal requieren sesion.
+- La busqueda TMDB y los comentarios publicos son de lectura.
+- Los cambios de favoritos/vistos solo afectan al usuario autenticado.
+- Ver `docs/ia-y-seguridad.md` para el registro de uso de IA en tests y revision de vulnerabilidades.
