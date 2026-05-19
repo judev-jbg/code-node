@@ -1,3 +1,10 @@
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
+
+export function buildTmdbImageUrl(path, size = 'w342') {
+  if (!path) return null;
+  return `${TMDB_IMAGE_BASE}/${size}${path}`;
+}
+
 export function getMediaTitle(item) {
   return item.title || item.name || 'Untitled';
 }

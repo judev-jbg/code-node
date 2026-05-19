@@ -1,4 +1,5 @@
 import { getCurrentUser } from '@/lib/session';
+import MediaSearch from './components/MediaSearch';
 
 export default async function HomePage() {
   const user = await getCurrentUser();
@@ -16,17 +17,10 @@ export default async function HomePage() {
         </p>
       </section>
 
-      <section className="stack">
-        <h2 className="stack__title">Foundation ready</h2>
-        <ul className="stack__list">
-          {['Next.js', 'TMDB', 'SQLite', 'better-auth', 'TDD'].map(tech => (
-            <li key={tech} className="stack__item">{tech}</li>
-          ))}
-        </ul>
-      </section>
+      <MediaSearch />
 
       <style>{`
-        .hero { max-width: 680px; margin-bottom: 5rem; }
+        .hero { max-width: 680px; margin-bottom: 3rem; }
         .hero__welcome {
           display: inline-block;
           background: var(--bg-card);
@@ -57,24 +51,6 @@ export default async function HomePage() {
           color: var(--text-muted);
           line-height: 1.8;
           margin-bottom: 2rem;
-        }
-        .stack__title {
-          font-size: 0.85rem;
-          font-family: 'Geist Mono', monospace;
-          color: var(--text-muted);
-          letter-spacing: 0.05em;
-          margin-bottom: 1rem;
-        }
-        .stack__list { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; }
-        .stack__item {
-          background: var(--bg-card);
-          color: var(--text-card);
-          font-size: 0.875rem;
-          font-family: 'Geist Mono', monospace;
-          padding: 0.35rem 0.85rem;
-          border-radius: 6px;
-          border: 1px solid #e7e5e4;
-          box-shadow: 0 1px 4px rgba(0,0,0,0.05);
         }
       `}</style>
     </main>
