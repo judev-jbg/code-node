@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import CommentsSection from '@/app/components/CommentsSection';
+import MediaStateControls from '@/app/components/MediaStateControls';
 import db from '@/lib/db';
-import { listCommentsForMedia } from '@/lib/media-store.mjs';
+import { ensureMediaItem, getUserMediaState, listCommentsForMedia } from '@/lib/media-store.mjs';
 import { buildTmdbImageUrl, isValidMediaType } from '@/lib/media-utils.mjs';
 import { getCurrentUser } from '@/lib/session';
 import { getMediaDetails } from '@/lib/tmdb.mjs';
@@ -32,6 +33,16 @@ export default async function MediaDetailPage(props: PageProps<'/media/[mediaTyp
     mediaType: detail.mediaType,
   });
   const user = await getCurrentUser();
+  const mediaItemId = ensureMediaItem(db, {
+    tmdbId: detail.tmdbId,
+    mediaType: detail.mediaType,
+    title: detail.title,
+    posterPath: detail.posterPath,
+    releaseDate: detail.releaseDate,
+  });
+  const userState = user
+    ? getUserMediaState(db, { userId: user.id, mediaItemId })
+    : { isFavorite: false, isWatched: false };
 
   return (
     <main className="detail-page">
@@ -70,6 +81,14 @@ export default async function MediaDetailPage(props: PageProps<'/media/[mediaTyp
                 <h2 id="synopsis-title">Sinopsis</h2>
                 <p>{detail.overview}</p>
               </section>
+
+              {user && (
+                <MediaStateControls
+                  initialState={userState}
+                  mediaType={validMediaType}
+                  tmdbId={detail.tmdbId}
+                />
+              )}
             </div>
           </article>
         </div>
