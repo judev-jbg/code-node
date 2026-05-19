@@ -1,20 +1,18 @@
 # ToView
 
-ToView is a Next.js app for discovering movies and series with TMDB, then tracking favorites, watched items, and authenticated comments.
+ToView es una aplicacion Next.js para buscar peliculas y series con la API de TMDB, y despues gestionar favoritos, titulos vistos y comentarios con usuarios autenticados.
 
-## Current Increment
+## Incremento Actual
 
-The current branch adds TMDB discovery on top of the initial foundation:
+Esta rama anade la pagina de detalle de cada titulo y deja el contenido visible en espanol:
 
-- Next.js application scaffold named `toview`.
-- better-auth and SQLite wiring copied from the previous weekly project.
-- TMDB environment variables documented in `.env.example`.
-- Initial TDD coverage for TMDB result normalization and persisted user-media state.
-- `/api/media/search` route handler for trending and debounced search results.
-- Responsive search UI with grid/list layout toggle.
-- TMDB helper tests for URLs, image URLs, and auth headers.
+- Busqueda TMDB desde `/api/media/search` con resultados en tendencia o filtrados por texto.
+- Interfaz responsive con buscador debounced y selector de vista grid/lista.
+- Pagina `/media/[mediaType]/[tmdbId]` con poster, fondo, titulo, calificacion, fecha y sinopsis completa.
+- Textos visibles de la aplicacion y documentacion en espanol.
+- Pruebas TDD para normalizacion de resultados, URLs de imagen, autenticacion TMDB y rutas locales de detalle.
 
-## Local Setup
+## Como Arrancar
 
 ```bash
 npm install
@@ -22,12 +20,16 @@ npm run test
 npm run dev
 ```
 
-Required environment variables are listed in `.env.example`.
+Abre `http://localhost:3000`.
 
-TMDB can authenticate with either `TMDB_READ_ACCESS_TOKEN` or `TMDB_API_KEY`; the bearer token is preferred when both exist.
+Las variables necesarias estan documentadas en `.env.example`.
 
-## Technical Notes
+TMDB puede autenticarse con `TMDB_READ_ACCESS_TOKEN` o `TMDB_API_KEY`; si existen ambas, se prefiere el bearer token.
 
-- Code identifiers are written in English.
-- UI styles will use plain CSS with BEM naming.
-- TMDB data will stay external; comments, favorites, watched state, and auth data will persist in SQLite.
+## Decisiones Tecnicas
+
+- Los identificadores de codigo se mantienen en ingles.
+- El contenido visible para usuarios esta en espanol.
+- Los estilos usan CSS puro con convencion BEM.
+- Los datos de peliculas y series vienen de TMDB.
+- Los comentarios, favoritos, vistos y datos de autenticacion persistiran en SQLite.

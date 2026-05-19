@@ -11,10 +11,10 @@ export default async function ProfilePage() {
   return (
     <main className="container" style={{ paddingTop: '4rem', paddingBottom: '5rem' }}>
       <section className="profile">
-        <p className="profile__eyebrow">Private profile</p>
-        <h1 className="profile__title">Your ToView activity</h1>
+        <p className="profile__eyebrow">Perfil privado</p>
+        <h1 className="profile__title">Tu actividad en ToView</h1>
         <p className="profile__copy">
-          Favorites, watched titles, and commented titles will appear here in the next increment.
+          Tus favoritas, titulos vistos y comentarios apareceran aqui en un proximo incremento.
         </p>
         <p className="profile__email">{user.email}</p>
       </section>

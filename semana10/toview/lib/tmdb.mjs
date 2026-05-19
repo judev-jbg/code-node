@@ -1,6 +1,7 @@
 import { buildTmdbImageUrl, filterSearchResults, normalizeMediaItem } from './media-utils.mjs';
 
 const TMDB_API_BASE = 'https://api.themoviedb.org/3';
+const TMDB_LANGUAGE = 'es-ES';
 
 export function buildTmdbUrl(path, params = {}, env = process.env) {
   const url = new URL(`${TMDB_API_BASE}${path}`);
@@ -31,7 +32,7 @@ export function getTmdbAuthHeaders(env = process.env) {
 
 export function assertTmdbConfigured(env = process.env) {
   if (!env.TMDB_READ_ACCESS_TOKEN && !env.TMDB_API_KEY) {
-    throw new Error('TMDB credentials are missing.');
+    throw new Error('Faltan las credenciales de TMDB.');
   }
 }
 
@@ -44,7 +45,7 @@ async function fetchTmdb(path, params = {}) {
   });
 
   if (!response.ok) {
-    throw new Error(`TMDB request failed with status ${response.status}`);
+    throw new Error(`La peticion a TMDB fallo con estado ${response.status}`);
   }
 
   return response.json();
@@ -54,7 +55,7 @@ export async function searchMedia(query) {
   const data = await fetchTmdb('/search/multi', {
     query,
     include_adult: false,
-    language: 'en-US',
+    language: TMDB_LANGUAGE,
     page: 1,
   });
 
@@ -63,7 +64,7 @@ export async function searchMedia(query) {
 
 export async function getTrendingMedia() {
   const data = await fetchTmdb('/trending/all/week', {
-    language: 'en-US',
+    language: TMDB_LANGUAGE,
   });
 
   return filterSearchResults(data.results ?? []);
@@ -71,7 +72,7 @@ export async function getTrendingMedia() {
 
 export async function getMediaDetails(mediaType, tmdbId) {
   const data = await fetchTmdb(`/${mediaType}/${tmdbId}`, {
-    language: 'en-US',
+    language: TMDB_LANGUAGE,
   });
 
   return normalizeMediaItem({ ...data, media_type: mediaType });

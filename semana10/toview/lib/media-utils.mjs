@@ -5,6 +5,18 @@ export function buildTmdbImageUrl(path, size = 'w342') {
   return `${TMDB_IMAGE_BASE}/${size}${path}`;
 }
 
+export function isValidMediaType(mediaType) {
+  return mediaType === 'movie' || mediaType === 'tv';
+}
+
+export function buildMediaDetailPath(mediaType, tmdbId) {
+  if (!isValidMediaType(mediaType)) {
+    throw new Error('Unsupported media type.');
+  }
+
+  return `/media/${mediaType}/${tmdbId}`;
+}
+
 export function getMediaTitle(item) {
   return item.title || item.name || 'Untitled';
 }
@@ -28,7 +40,7 @@ export function normalizeMediaItem(item) {
     title: getMediaTitle(item),
     year: getMediaYear(item),
     releaseDate: getMediaDate(item),
-    overview: item.overview || 'No synopsis available.',
+    overview: item.overview || 'Sin sinopsis disponible.',
     rating: typeof item.vote_average === 'number' ? Number(item.vote_average.toFixed(1)) : 0,
     posterPath: item.poster_path || null,
     backdropPath: item.backdrop_path || null,

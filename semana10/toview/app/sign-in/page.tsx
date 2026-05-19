@@ -23,7 +23,7 @@ export default function SignInPage() {
     });
     setLoading(false);
     if (err) {
-      setError(err.message ?? 'Invalid credentials.');
+      setError(err.message ?? 'Credenciales incorrectas.');
       return;
     }
     router.push('/');
@@ -32,28 +32,28 @@ export default function SignInPage() {
   return (
     <main className="auth-page">
       <div className="auth-card">
-        <h1 className="auth-title">Sign in</h1>
-        <p className="auth-sub">Access your ToView lists and comments.</p>
+        <h1 className="auth-title">Iniciar sesion</h1>
+        <p className="auth-sub">Accede a tus listas y comentarios de ToView.</p>
 
         {error && <p className="auth-error">{error}</p>}
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="field">
             <label htmlFor="email" className="field__label">Email</label>
-            <input id="email" className="field__input" type="email" placeholder="you@example.com"
+            <input id="email" className="field__input" type="email" placeholder="tu@email.com"
               value={email} onChange={e => setEmail(e.target.value)} required />
           </div>
           <div className="field">
-            <label htmlFor="password" className="field__label">Password</label>
-            <input id="password" className="field__input" type="password" placeholder="Your password"
+            <label htmlFor="password" className="field__label">Contrasena</label>
+            <input id="password" className="field__input" type="password" placeholder="Tu contrasena"
               value={password} onChange={e => setPassword(e.target.value)} required />
           </div>
           <button type="submit" className="auth-btn" disabled={loading}>
-            {loading ? 'Signing in...' : 'Enter'}
+            {loading ? 'Accediendo...' : 'Entrar'}
           </button>
         </form>
 
-        <p className="auth-link">No account yet? <Link href="/sign-up">Create one</Link></p>
+        <p className="auth-link">No tienes cuenta? <Link href="/sign-up">Crea una</Link></p>
       </div>
 
       <style>{`
