@@ -1,6 +1,10 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import CommentsSection from '@/app/components/CommentsSection';
+import db from '@/lib/db';
+import { listCommentsForMedia } from '@/lib/media-store.mjs';
 import { buildTmdbImageUrl, isValidMediaType } from '@/lib/media-utils.mjs';
+import { getCurrentUser } from '@/lib/session';
 import { getMediaDetails } from '@/lib/tmdb.mjs';
 
 export default async function MediaDetailPage(props: PageProps<'/media/[mediaType]/[tmdbId]'>) {
@@ -10,7 +14,8 @@ export default async function MediaDetailPage(props: PageProps<'/media/[mediaTyp
     notFound();
   }
 
-  const detail = await getMediaDetails(mediaType, tmdbId).catch(() => null);
+  const validMediaType = mediaType as 'movie' | 'tv';
+  const detail = await getMediaDetails(validMediaType, tmdbId).catch(() => null);
 
   if (!detail) {
     notFound();
@@ -22,6 +27,11 @@ export default async function MediaDetailPage(props: PageProps<'/media/[mediaTyp
   const formattedDate = detail.releaseDate
     ? new Intl.DateTimeFormat('es-ES', { dateStyle: 'long' }).format(new Date(detail.releaseDate))
     : 'Fecha no disponible';
+  const comments = listCommentsForMedia(db, {
+    tmdbId: detail.tmdbId,
+    mediaType: detail.mediaType,
+  });
+  const user = await getCurrentUser();
 
   return (
     <main className="detail-page">
@@ -65,16 +75,12 @@ export default async function MediaDetailPage(props: PageProps<'/media/[mediaTyp
         </div>
       </section>
 
-      <section className="container detail-comments" aria-labelledby="comments-title">
-        <div>
-          <p className="detail-comments__eyebrow">Comunidad</p>
-          <h2 id="comments-title" className="detail-comments__title">Comentarios</h2>
-          <p className="detail-comments__copy">
-            Los comentarios autenticados se conectaran en el siguiente incremento.
-          </p>
-        </div>
-        <Link href="/sign-in" className="detail-comments__button">Iniciar sesion para comentar</Link>
-      </section>
+      <CommentsSection
+        initialComments={comments}
+        isAuthenticated={!!user}
+        mediaType={validMediaType}
+        tmdbId={detail.tmdbId}
+      />
     </main>
   );
 }

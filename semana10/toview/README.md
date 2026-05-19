@@ -4,13 +4,15 @@ ToView es una aplicacion Next.js para buscar peliculas y series con la API de TM
 
 ## Incremento Actual
 
-Esta rama anade la pagina de detalle de cada titulo y deja el contenido visible en espanol:
+Esta rama anade comentarios autenticados sobre la pagina de detalle:
 
 - Busqueda TMDB desde `/api/media/search` con resultados en tendencia o filtrados por texto.
 - Interfaz responsive con buscador debounced y selector de vista grid/lista.
 - Pagina `/media/[mediaType]/[tmdbId]` con poster, fondo, titulo, calificacion, fecha y sinopsis completa.
+- Comentarios visibles para todos y creacion protegida para usuarios autenticados.
+- Persistencia de comentarios en SQLite asociados a usuario y titulo TMDB.
 - Textos visibles de la aplicacion y documentacion en espanol.
-- Pruebas TDD para normalizacion de resultados, URLs de imagen, autenticacion TMDB y rutas locales de detalle.
+- Pruebas TDD para normalizacion de resultados, URLs de imagen, autenticacion TMDB, rutas locales de detalle y persistencia de comentarios.
 
 ## Como Arrancar
 
