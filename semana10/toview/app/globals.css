@@ -122,6 +122,139 @@ img { max-width: 100%; display: block; }
   color: var(--text-muted);
 }
 
+.profile {
+  animation: rise .35s ease both;
+  margin-bottom: 2.5rem;
+  max-width: 680px;
+}
+
+.profile__eyebrow {
+  color: var(--text-muted);
+  font-family: 'Geist Mono', monospace;
+  font-size: .85rem;
+  margin-bottom: .75rem;
+}
+
+.profile__title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 1rem;
+}
+
+.profile__copy {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.profile__email {
+  background: var(--bg-card);
+  border: 1px solid #e7e5e4;
+  border-radius: 6px;
+  color: var(--text-card);
+  display: inline-block;
+  font-family: 'Geist Mono', monospace;
+  padding: .45rem .75rem;
+}
+
+.profile-sections {
+  display: grid;
+  gap: 2rem;
+}
+
+.profile-section {
+  border-top: 1px solid #e7e5e4;
+  padding-top: 1.5rem;
+}
+
+.profile-section__header {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.profile-section__title {
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+}
+
+.profile-section__count {
+  background: var(--accent);
+  border-radius: 999px;
+  color: var(--text);
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 800;
+  min-width: 1.6rem;
+  padding: 0.1rem 0.45rem;
+  text-align: center;
+}
+
+.profile-section__empty {
+  color: var(--text-muted);
+}
+
+.profile-grid {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  list-style: none;
+}
+
+.profile-card {
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid #e7e5e4;
+  border-radius: 8px;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 56px 1fr;
+  min-height: 96px;
+  overflow: hidden;
+  padding: 0.7rem;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.profile-card:hover {
+  border-color: #d6d3d1;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+.profile-card__poster {
+  aspect-ratio: 2 / 3;
+  background: #e7e5e4;
+  border-radius: 6px;
+  display: grid;
+  overflow: hidden;
+  place-items: center;
+}
+
+.profile-card__image {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.profile-card__placeholder,
+.profile-card__meta {
+  color: var(--text-muted);
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.72rem;
+}
+
+.profile-card__body {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.profile-card__title {
+  font-weight: 800;
+  line-height: 1.25;
+}
+
 .footer {
   border-top: 1px solid #e7e5e4;
   padding: 2rem 0;
@@ -355,6 +488,11 @@ img { max-width: 100%; display: block; }
 
 @keyframes media-enter {
   from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
