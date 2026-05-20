@@ -28,7 +28,9 @@ export default function SignUpPage() {
       setError(err.message ?? 'No se pudo crear tu cuenta.');
       return;
     }
+    authClient.$store.notify('$sessionSignal');
     router.push('/');
+    router.refresh();
   }
 
   return (

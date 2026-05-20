@@ -6,6 +6,7 @@ import { migrateBetterAuthSchema } from './auth-schema.mjs';
 
 const authDb = new Database(path.join(process.cwd(), 'database.sqlite'));
 
+authDb.pragma('busy_timeout = 5000');
 authDb.pragma('journal_mode = WAL');
 authDb.pragma('foreign_keys = ON');
 migrateBetterAuthSchema(authDb);
