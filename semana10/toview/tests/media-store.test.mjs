@@ -66,6 +66,14 @@ describe('media store', () => {
     assert.equal(comments[0].authorEmail, 'ana@example.com');
   });
 
+  it('returns no comments when auth tables are not initialized yet', () => {
+    const freshDb = new Database(':memory:');
+    freshDb.pragma('foreign_keys = ON');
+    migrateToViewSchema(freshDb);
+
+    assert.deepEqual(listCommentsForMedia(freshDb, { tmdbId: 550, mediaType: 'movie' }), []);
+  });
+
   it('toggles favorite and watched state for a user media item', () => {
     const mediaItemId = ensureMediaItem(db, {
       tmdbId: 550,
