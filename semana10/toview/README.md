@@ -2,6 +2,12 @@
 
 ToView es una aplicacion web hecha con Next.js para buscar peliculas y series usando TMDB. Los usuarios pueden iniciar sesion, comentar titulos, marcarlos como favoritos, marcarlos como vistos y consultar su actividad desde el perfil.
 
+## Demo
+
+Demo en vivo: https://to-view.onrender.com/
+
+Con fines academicos, este proyecto ha sido desplegado en Render. Al visitar el enlace, el servicio puede tardar unos segundos en iniciar si estaba inactivo; espera un momento antes de asumir que la app esta caida.
+
 ## Funcionalidades
 
 - Busqueda de peliculas y series con la API de TMDB.
