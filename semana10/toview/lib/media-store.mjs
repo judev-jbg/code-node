@@ -72,7 +72,19 @@ export function createComment(db, { userId, mediaItemId, content }) {
   return Number(result.lastInsertRowid);
 }
 
+export function tableExists(db, tableName) {
+  return Boolean(db.prepare(`
+    SELECT name
+    FROM sqlite_master
+    WHERE type = 'table' AND name = ?
+  `).get(tableName));
+}
+
 export function listCommentsForMedia(db, { tmdbId, mediaType }) {
+  if (!tableExists(db, 'user')) {
+    return [];
+  }
+
   return db.prepare(`
     SELECT
       comments.id,
