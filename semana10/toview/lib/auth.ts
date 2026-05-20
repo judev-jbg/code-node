@@ -11,8 +11,16 @@ authDb.pragma('journal_mode = WAL');
 authDb.pragma('foreign_keys = ON');
 migrateBetterAuthSchema(authDb);
 
+const appUrl = process.env.BETTER_AUTH_URL ?? process.env.NEXT_PUBLIC_APP_URL;
+const trustedOrigins = [
+  process.env.BETTER_AUTH_URL,
+  process.env.NEXT_PUBLIC_APP_URL,
+].filter((origin): origin is string => Boolean(origin));
+
 export const auth = betterAuth({
   database: authDb,
+  baseURL: appUrl,
+  trustedOrigins,
   emailAndPassword: {
     enabled: true,
   },
