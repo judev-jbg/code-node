@@ -1,32 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { authClient } from '@/lib/auth-client';
 
 export default function NavAuth() {
   const router = useRouter();
-  const [isAuth, setIsAuth] = useState(false);
-  const [email, setEmail] = useState('');
-  const [checked, setChecked] = useState(false);
-
-  useEffect(() => {
-    authClient.getSession().then(({ data }) => {
-      setIsAuth(!!data?.session);
-      setEmail(data?.user?.email ?? '');
-      setChecked(true);
-    });
-  }, []);
+  const { data, isPending } = authClient.useSession();
+  const isAuth = !!data?.session;
+  const email = data?.user?.email ?? '';
 
   async function handleSignOut() {
     await authClient.signOut();
-    setIsAuth(false);
     router.push('/');
     router.refresh();
   }
 
-  if (!checked) return null;
+  if (isPending) return null;
 
   return isAuth ? (
     <div className="nav-auth">

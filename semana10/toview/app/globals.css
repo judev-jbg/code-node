@@ -265,6 +265,16 @@ img { max-width: 100%; display: block; }
   font-family: 'Geist Mono', monospace;
 }
 
+.footer__content {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.footer a {
+  border-bottom: 1px solid currentColor;
+  overflow-wrap: anywhere;
+}
+
 .media-search {
   animation: media-enter 420ms ease both;
 }

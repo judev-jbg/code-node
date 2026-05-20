@@ -28,8 +28,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
 
         <footer className="footer">
-          <div className="container">
-            <p>(c) {new Date().getFullYear()} ToView - Hecho con Next.js</p>
+          <div className="container footer__content">
+            <p>(c) 2026 ToView - Proyecto final - CodeNode</p>
+            <p>Autor: Junior Balcazar - JuDev</p>
+            <p>
+              Repo:{' '}
+              <a href="https://github.com/judev-jbg/code-node/tree/main/semana10/toview">
+                https://github.com/judev-jbg/code-node/tree/main/semana10/toview
+              </a>
+            </p>
           </div>
         </footer>
       </body>
